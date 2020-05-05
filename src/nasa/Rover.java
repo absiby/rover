@@ -1,8 +1,8 @@
-package mars;
+package nasa;
 
 public class Rover {
     private Position position;
-    Direction direction;
+    private Direction direction;
 
     public String location() {
         return this.position.getX() + " " + this.position.getY() + " " + direction;
@@ -10,11 +10,37 @@ public class Rover {
 
 
     public void switchLeft() {
-        this.direction = Direction.values()[(direction.getDegre()+1)%4];
+        switch (direction) {
+            case E:
+                this.direction = Direction.N;
+                break;
+            case N:
+                this.direction = Direction.W;
+                break;
+            case W:
+                this.direction = Direction.S;
+                break;
+            case S:
+                this.direction = Direction.E;
+                break;
+        }
     }
 
     public void switchRight() {
-        this.direction = Direction.values()[(direction.getDegre()+3)%4];
+        switch (direction) {
+            case E:
+                this.direction = Direction.S;
+                break;
+            case N:
+                this.direction = Direction.E;
+                break;
+            case W:
+                this.direction = Direction.N;
+                break;
+            case S:
+                this.direction = Direction.W;
+                break;
+        }
     }
 
     public Position getForwardLocation() {
