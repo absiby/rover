@@ -4,9 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Plateau {
+
+    private static final Logger LOGGER = Logger.getLogger(Plateau.class.getName());
     private static int[] plateauUpperCorner = new int[2];
+
 
     private static String roverPath;
     private static Rover rover;
@@ -30,15 +35,9 @@ public class Plateau {
                 String newRoverLocation = RoverNavigator.navigate(rover, roverPath, plateauUpperCorner);
                 System.out.println(newRoverLocation);
             }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (InputMismatchException e) {
-            System.err.println("Donnée invalide");
-        } catch (InvalidPathException e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException|InputMismatchException|InvalidPathException e) {
+            LOGGER.log(Level.SEVERE, "Exception occur", e);
         }
-
     }
 
 }
