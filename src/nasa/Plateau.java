@@ -10,13 +10,14 @@ import java.util.logging.Logger;
 public class Plateau {
 
     private static final Logger LOGGER = Logger.getLogger(Plateau.class.getName());
-    private static int[] plateauUpperCorner = new int[2];
+    private int[] plateauUpperCorner = new int[2];
 
 
-    private static String roverPath;
-    private static Rover rover;
+    private String roverPath;
+    private Rover rover;
 
     public static void main(String[] args) {
+        Plateau plateau = new Plateau();
 
         if (args.length == 0) {
             System.out.println("Proper Usage is: java -jar rover.jar filename");
@@ -26,13 +27,13 @@ public class Plateau {
         String filename = "../" + args[0];
 
         try (Scanner sc = new Scanner(new File(filename))) {
-            plateauUpperCorner[0] = sc.nextInt();
-            plateauUpperCorner[1] = sc.nextInt();
+            plateau.plateauUpperCorner[0] = sc.nextInt();
+            plateau.plateauUpperCorner[1] = sc.nextInt();
 
             while (sc.hasNext()) {
-                rover = new Rover(new Position(sc.nextInt(), sc.nextInt()), Direction.valueOf(sc.next()));
-                roverPath = sc.next();
-                String newRoverLocation = RoverNavigator.navigate(rover, roverPath, plateauUpperCorner);
+                plateau.rover = new Rover(new Position(sc.nextInt(), sc.nextInt()), Direction.valueOf(sc.next()));
+                plateau.roverPath = sc.next();
+                String newRoverLocation = RoverNavigator.navigate(plateau.rover, plateau.roverPath, plateau.plateauUpperCorner);
                 System.out.println(newRoverLocation);
             }
         } catch (FileNotFoundException|InputMismatchException|InvalidPathException e) {
